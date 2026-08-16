@@ -70,18 +70,19 @@ export default function LoginPage() {
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="w-full lg:w-5/12 p-8 lg:p-14 flex flex-col justify-between text-white relative overflow-hidden shrink-0"
       >
-        {/* Background Image Wrapper */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/cepi_login_hero_animation.jpg"
-            alt="Aluno abrindo um caderno luminoso com partículas de sabedoria"
-            fill
-            priority
-            quality={100}
-            className="object-cover object-center"
-          />
+        {/* Background Video Wrapper */}
+        <div className="absolute inset-0 z-0 bg-[#0F2240]">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          >
+            <source src="/images/hero-video.mp4" type="video/mp4" />
+          </video>
           {/* Institutional Overlay Gradient to ensure text readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0F2240]/90 via-[#1B3A6B]/80 to-[#14294C]/95 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0F2240]/80 via-[#1B3A6B]/70 to-[#14294C]/85 mix-blend-multiply" />
         </div>
 
         {/* Background Light Blobs (Enhanced Depth) */}
