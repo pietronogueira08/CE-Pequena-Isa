@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Avatar } from '@/components/ui/Avatar';
 import { useToast } from '@/components/ui/Toast';
+import { PageHeaderNav } from '@/components/ui/PageHeaderNav';
 import { MOCK_STUDENTS_6A, MOCK_CLASSES } from '@/lib/mock-data/school';
 import confetti from 'canvas-confetti';
 import {
@@ -98,43 +99,41 @@ export default function AttendancePage() {
 
   return (
     <div className="space-y-6">
-      {/* Page Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Chamada & Frequência
-            </h1>
-            <Badge variant="green" dot>
-              Tempo Real
-            </Badge>
+      {/* Page Header with Back Button & Breadcrumbs */}
+      <PageHeaderNav
+        title="Chamada & Frequência"
+        subtitle="Registro diário de presença com notificação automática aos responsáveis em caso de falta."
+        backHref="/dashboard/professor"
+        backLabel="Voltar ao Painel"
+        breadcrumbs={[
+          { label: 'Painel do Docente', href: '/dashboard/professor' },
+          { label: 'Fazer Chamada' },
+        ]}
+        badgeText="Tempo Real"
+        badgeVariant="green"
+        rightActions={
+          <div className="flex items-center gap-3">
+            <Button
+              variant="outline"
+              size="md"
+              leftIcon={<UserCheck className="w-4 h-4 text-emerald-600" />}
+              onClick={handleMarkAllPresent}
+            >
+              Marcar Todos Presentes
+            </Button>
+
+            <Button
+              variant="gold"
+              size="md"
+              isLoading={isSaving}
+              leftIcon={<Save className="w-4 h-4" />}
+              onClick={handleSaveAttendance}
+            >
+              {isSubmitted ? 'Atualizar Chamada' : 'Salvar Chamada'}
+            </Button>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Registro diário de presença com notificação automática aos responsáveis em caso de falta.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            size="md"
-            leftIcon={<UserCheck className="w-4 h-4 text-emerald-600" />}
-            onClick={handleMarkAllPresent}
-          >
-            Marcar Todos Presentes
-          </Button>
-
-          <Button
-            variant="gold"
-            size="md"
-            isLoading={isSaving}
-            leftIcon={<Save className="w-4 h-4" />}
-            onClick={handleSaveAttendance}
-          >
-            {isSubmitted ? 'Atualizar Chamada' : 'Salvar Chamada'}
-          </Button>
-        </div>
-      </div>
+        }
+      />
 
       {/* Class & Date Selector + Live Stats Header */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">

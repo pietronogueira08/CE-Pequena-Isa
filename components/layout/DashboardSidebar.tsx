@@ -16,16 +16,15 @@ import {
   AlertCircle,
   BarChart3,
   Users2,
-  FileSpreadsheet,
   CalendarDays,
   DollarSign,
-  GraduationCap,
-  Bell,
   ChevronLeft,
   ChevronRight,
   LogOut,
   Sparkles,
   ArrowLeftRight,
+  X,
+  Bell,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -38,10 +37,17 @@ interface NavItem {
 
 interface DashboardSidebarProps {
   role: UserRole;
+  isMobileOpen?: boolean;
+  onCloseMobile?: () => void;
   onOpenRoleSwitcher?: () => void;
 }
 
-export function DashboardSidebar({ role, onOpenRoleSwitcher }: DashboardSidebarProps) {
+export function DashboardSidebar({
+  role,
+  isMobileOpen = false,
+  onCloseMobile,
+  onOpenRoleSwitcher,
+}: DashboardSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
@@ -83,36 +89,58 @@ export function DashboardSidebar({ role, onOpenRoleSwitcher }: DashboardSidebarP
 
   const currentNavItems = navItemsByRole[role] || navItemsByRole.professor;
 
-  return (
-    <aside
-      className={cn(
-        'relative flex flex-col justify-between h-screen sticky top-0 bg-white/95 backdrop-blur-xl border-r border-slate-200/80 z-30 transition-all duration-300 select-none shadow-sm',
-        collapsed ? 'w-20' : 'w-64 sm:w-72'
-      )}
-    >
+  const handleNavClick = () => {
+    if (onCloseMobile) {
+      onCloseMobile();
+    }
+  };
+
+  const sidebarContent = (isDrawer = false) => (
+    <div className="flex flex-col justify-between h-full select-none">
       {/* Top Brand Header */}
       <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-        <Link href={roleMeta.defaultRoute} className="flex items-center gap-2 overflow-hidden">
-          <CepiLogo size="sm" showText={!collapsed} />
-        </Link>
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0"
-          title={collapsed ? 'Expandir menu' : 'Recolher menu'}
+        <Link
+          href={roleMeta.defaultRoute}
+          onClick={handleNavClick}
+          className="flex items-center gap-2 overflow-hidden"
         >
-          {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
-        </button>
+          <CepiLogo size="sm" showText={isDrawer || !collapsed} />
+        </Link>
+
+        {isDrawer ? (
+          <button
+            onClick={onCloseMobile}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        ) : (
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0"
+            title={collapsed ? 'Expandir menu' : 'Recolher menu'}
+          >
+            {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+          </button>
+        )}
       </div>
 
       {/* Role Badge Indicator */}
-      <div className={cn('px-4 py-3 border-b border-slate-100/60 bg-slate-50/50', collapsed && 'text-center px-2')}>
-        {collapsed ? (
+      <div
+        className={cn(
+          'px-4 py-3 border-b border-slate-100/60 bg-slate-50/50',
+          !isDrawer && collapsed && 'text-center px-2'
+        )}
+      >
+        {!isDrawer && collapsed ? (
           <div className="w-8 h-8 rounded-full bg-cepi-navy-50 text-cepi-navy flex items-center justify-center font-bold text-xs mx-auto">
             {role[0].toUpperCase()}
           </div>
         ) : (
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Perfil Ativo</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              Perfil Ativo
+            </span>
             <Badge variant="navy" size="sm" dot>
               {roleMeta.label}
             </Badge>
@@ -128,23 +156,27 @@ export function DashboardSidebar({ role, onOpenRoleSwitcher }: DashboardSidebarP
             <Link
               key={item.href}
               href={item.href}
+              onClick={handleNavClick}
               className={cn(
                 'group flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 relative',
                 isActive
                   ? 'bg-cepi-navy text-white shadow-md shadow-cepi-navy/20 font-semibold'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80',
-                collapsed && 'justify-center px-0'
+                !isDrawer && collapsed && 'justify-center px-0'
               )}
             >
-              <div className={cn('shrink-0 transition-transform group-hover:scale-110', isActive ? 'text-cepi-gold' : 'text-slate-500')}>
+              <div
+                className={cn(
+                  'shrink-0 transition-transform group-hover:scale-110',
+                  isActive ? 'text-cepi-gold' : 'text-slate-500'
+                )}
+              >
                 {item.icon}
               </div>
 
-              {!collapsed && (
-                <span className="flex-1 truncate">{item.label}</span>
-              )}
+              {(isDrawer || !collapsed) && <span className="flex-1 truncate">{item.label}</span>}
 
-              {!collapsed && item.badge && (
+              {(isDrawer || !collapsed) && item.badge && (
                 <span
                   className={cn(
                     'px-2 py-0.5 text-[10px] font-bold rounded-full',
@@ -163,15 +195,18 @@ export function DashboardSidebar({ role, onOpenRoleSwitcher }: DashboardSidebarP
       <div className="p-3 border-t border-slate-100 space-y-2 bg-gradient-to-b from-transparent to-slate-50/80">
         {onOpenRoleSwitcher && (
           <button
-            onClick={onOpenRoleSwitcher}
+            onClick={() => {
+              if (onCloseMobile) onCloseMobile();
+              onOpenRoleSwitcher();
+            }}
             className={cn(
               'w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-cepi-navy bg-cepi-gold-50/90 border border-cepi-gold/50 hover:bg-cepi-gold-100 transition-all shadow-xs cursor-pointer',
-              collapsed ? 'justify-center p-2' : ''
+              !isDrawer && collapsed ? 'justify-center p-2' : ''
             )}
             title="Alternar Perfil Demo"
           >
             <ArrowLeftRight className="w-4 h-4 text-amber-700 shrink-0" />
-            {!collapsed && <span>Alternar Perfil (Demo)</span>}
+            {(isDrawer || !collapsed) && <span>Alternar Perfil (Demo)</span>}
           </button>
         )}
 
@@ -179,14 +214,56 @@ export function DashboardSidebar({ role, onOpenRoleSwitcher }: DashboardSidebarP
           onClick={() => router.push('/login')}
           className={cn(
             'w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-600 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer',
-            collapsed ? 'justify-center p-2' : ''
+            !isDrawer && collapsed ? 'justify-center p-2' : ''
           )}
           title="Encerrar Sessão"
         >
           <LogOut className="w-4 h-4 shrink-0" />
-          {!collapsed && <span>Sair para o Login</span>}
+          {(isDrawer || !collapsed) && <span>Sair para o Login</span>}
         </button>
       </div>
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Persistent Sidebar (>= lg) */}
+      <aside
+        className={cn(
+          'hidden lg:flex flex-col justify-between h-screen sticky top-0 bg-white/95 backdrop-blur-xl border-r border-slate-200/80 z-30 transition-all duration-300 shadow-sm shrink-0',
+          collapsed ? 'w-20' : 'w-64 xl:w-72'
+        )}
+      >
+        {sidebarContent(false)}
+      </aside>
+
+      {/* Mobile / Tablet Drawer (< lg) with AnimatePresence */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden flex">
+            {/* Backdrop Blur */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={onCloseMobile}
+              className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs"
+            />
+
+            {/* Sliding Drawer */}
+            <motion.aside
+              initial={{ x: -280 }}
+              animate={{ x: 0 }}
+              exit={{ x: -280 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 280 }}
+              className="relative w-72 max-w-[80vw] h-full bg-white shadow-2xl z-10 border-r border-slate-200"
+            >
+              {sidebarContent(true)}
+            </motion.aside>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

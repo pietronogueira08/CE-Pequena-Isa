@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { useToast } from '@/components/ui/Toast';
+import { PageHeaderNav } from '@/components/ui/PageHeaderNav';
 import { INITIAL_DIARY_ENTRIES } from '@/lib/mock-data/academic';
 import { MOCK_CLASSES } from '@/lib/mock-data/school';
 import { DiaryEntry } from '@/lib/types';
@@ -93,29 +94,29 @@ export default function ClassDiaryPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Diário de Classe
-            </h1>
-            <Badge variant="navy">Ano Letivo 2026</Badge>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Registro pedagógico oficial de conteúdos lecionados, habilidades BNCC e atividades propostas.
-          </p>
-        </div>
-
-        <Button
-          variant="gold"
-          size="md"
-          leftIcon={<Plus className="w-4 h-4" />}
-          onClick={() => setIsModalOpen(true)}
-        >
-          Novo Registro de Aula
-        </Button>
-      </div>
+      {/* Page Header with Back Button & Breadcrumbs */}
+      <PageHeaderNav
+        title="Diário de Classe"
+        subtitle="Registro pedagógico oficial de conteúdos lecionados, habilidades BNCC e atividades propostas."
+        backHref="/dashboard/professor"
+        backLabel="Voltar ao Painel"
+        breadcrumbs={[
+          { label: 'Painel do Docente', href: '/dashboard/professor' },
+          { label: 'Diário de Classe' },
+        ]}
+        badgeText="Ano Letivo 2026"
+        badgeVariant="navy"
+        rightActions={
+          <Button
+            variant="gold"
+            size="md"
+            leftIcon={<Plus className="w-4 h-4" />}
+            onClick={() => setIsModalOpen(true)}
+          >
+            Novo Registro de Aula
+          </Button>
+        }
+      />
 
       {/* Class Selector Tabs & Search Filter */}
       <GlassCard className="p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">

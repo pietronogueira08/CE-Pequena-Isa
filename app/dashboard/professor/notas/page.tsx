@@ -6,6 +6,7 @@ import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { useToast } from '@/components/ui/Toast';
+import { PageHeaderNav } from '@/components/ui/PageHeaderNav';
 import { INITIAL_GRADES_6A } from '@/lib/mock-data/academic';
 import { MOCK_CLASSES } from '@/lib/mock-data/school';
 import { GradeItem } from '@/lib/types';
@@ -102,23 +103,19 @@ export default function GradeEntryPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Lançamento de Notas
-            </h1>
-            <Badge variant="gold">
-              Cálculo em Tempo Real
-            </Badge>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Grade oficial de notas bimestrais com recálculo automático de médias e destaque de recuperação.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
+      {/* Page Header with Back Button & Breadcrumbs */}
+      <PageHeaderNav
+        title="Lançamento de Notas"
+        subtitle="Grade oficial de notas bimestrais com recálculo automático de médias e destaque de recuperação."
+        backHref="/dashboard/professor"
+        backLabel="Voltar ao Painel"
+        breadcrumbs={[
+          { label: 'Painel do Docente', href: '/dashboard/professor' },
+          { label: 'Lançamento de Notas' },
+        ]}
+        badgeText="Cálculo em Tempo Real"
+        badgeVariant="gold"
+        rightActions={
           <Button
             variant="gold"
             size="md"
@@ -128,8 +125,8 @@ export default function GradeEntryPage() {
           >
             Salvar Fechamento de Notas
           </Button>
-        </div>
-      </div>
+        }
+      />
 
       {/* Class Selector & Controls */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">

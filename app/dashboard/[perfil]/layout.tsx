@@ -17,6 +17,7 @@ export default function DashboardLayout({
   const params = useParams();
   const router = useRouter();
   const [isRoleSwitcherOpen, setIsRoleSwitcherOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const rawRole = (params?.perfil as string) || 'professor';
   const role: UserRole = ['professor', 'diretor', 'secretaria', 'responsavel', 'aluno'].includes(rawRole)
@@ -27,9 +28,11 @@ export default function DashboardLayout({
 
   return (
     <div className="min-h-screen flex bg-slate-50 text-slate-900">
-      {/* Sidebar Navigation */}
+      {/* Sidebar Navigation (Desktop Persistent + Mobile Drawer) */}
       <DashboardSidebar
         role={role}
+        isMobileOpen={isMobileMenuOpen}
+        onCloseMobile={() => setIsMobileMenuOpen(false)}
         onOpenRoleSwitcher={() => setIsRoleSwitcherOpen(true)}
       />
 
@@ -39,6 +42,7 @@ export default function DashboardLayout({
         <DashboardHeader
           user={currentUser}
           role={role}
+          onToggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           onOpenRoleSwitcher={() => setIsRoleSwitcherOpen(true)}
         />
 

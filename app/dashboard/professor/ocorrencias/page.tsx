@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Input, Select } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { useToast } from '@/components/ui/Toast';
+import { PageHeaderNav } from '@/components/ui/PageHeaderNav';
 import { INITIAL_INCIDENTS } from '@/lib/mock-data/academic';
 import { MOCK_STUDENTS_6A, MOCK_CLASSES } from '@/lib/mock-data/school';
 import { IncidentRecord } from '@/lib/types';
@@ -115,29 +116,29 @@ export default function IncidentsPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Ocorrências & Elogios Pedagógicos
-            </h1>
-            <Badge variant="navy">Acompanhamento Integral</Badge>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Canal transparente de comunicação disciplinar, elogios e observações de convivência escolar.
-          </p>
-        </div>
-
-        <Button
-          variant="gold"
-          size="md"
-          leftIcon={<Plus className="w-4 h-4" />}
-          onClick={() => setIsModalOpen(true)}
-        >
-          Registrar Nova Ocorrência
-        </Button>
-      </div>
+      {/* Page Header with Back Button & Breadcrumbs */}
+      <PageHeaderNav
+        title="Ocorrências & Elogios Pedagógicos"
+        subtitle="Canal transparente de comunicação disciplinar, elogios e observações de convivência escolar."
+        backHref="/dashboard/professor"
+        backLabel="Voltar ao Painel"
+        breadcrumbs={[
+          { label: 'Painel do Docente', href: '/dashboard/professor' },
+          { label: 'Ocorrências' },
+        ]}
+        badgeText="Acompanhamento Integral"
+        badgeVariant="navy"
+        rightActions={
+          <Button
+            variant="gold"
+            size="md"
+            leftIcon={<Plus className="w-4 h-4" />}
+            onClick={() => setIsModalOpen(true)}
+          >
+            Registrar Nova Ocorrência
+          </Button>
+        }
+      />
 
       {/* Filter and Search Bar */}
       <GlassCard className="p-4 flex flex-col sm:flex-row items-center justify-between gap-3">

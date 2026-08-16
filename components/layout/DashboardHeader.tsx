@@ -24,9 +24,15 @@ interface DashboardHeaderProps {
   user: UserProfile;
   role: UserRole;
   onOpenRoleSwitcher: () => void;
+  onToggleMobileMenu?: () => void;
 }
 
-export function DashboardHeader({ user, role, onOpenRoleSwitcher }: DashboardHeaderProps) {
+export function DashboardHeader({
+  user,
+  role,
+  onOpenRoleSwitcher,
+  onToggleMobileMenu,
+}: DashboardHeaderProps) {
   const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -58,9 +64,20 @@ export function DashboardHeader({ user, role, onOpenRoleSwitcher }: DashboardHea
   ];
 
   return (
-    <header className="sticky top-0 z-20 h-18 bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-8 flex items-center justify-between shadow-xs">
-      {/* Left: Unit & Period Context */}
+    <header className="sticky top-0 z-20 h-16 sm:h-18 bg-white/85 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-8 flex items-center justify-between shadow-xs">
+      {/* Left: Mobile Hamburger Toggle + Unit & Period Context */}
       <div className="flex items-center gap-3">
+        {/* Mobile Hamburger Button (< lg) */}
+        {onToggleMobileMenu && (
+          <button
+            onClick={onToggleMobileMenu}
+            className="lg:hidden p-2 rounded-xl text-slate-600 hover:text-cepi-navy hover:bg-slate-100 transition-colors cursor-pointer"
+            title="Abrir Menu de Navegação"
+          >
+            <Layers className="w-5 h-5 text-cepi-navy" />
+          </button>
+        )}
+
         <div className="hidden md:flex flex-col">
           <div className="flex items-center gap-2">
             <h2 className="text-base font-extrabold text-cepi-navy tracking-tight">
@@ -75,7 +92,7 @@ export function DashboardHeader({ user, role, onOpenRoleSwitcher }: DashboardHea
         </div>
 
         {/* Mobile Title */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-2">
           <Badge variant="navy" size="sm">
             {roleMeta.label}
           </Badge>
