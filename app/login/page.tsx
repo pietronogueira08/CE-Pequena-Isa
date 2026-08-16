@@ -74,7 +74,6 @@ export default function LoginPage() {
         <div className="absolute inset-0 z-0 bg-[#0F2240]">
           <video
             autoPlay
-            loop
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover object-center"

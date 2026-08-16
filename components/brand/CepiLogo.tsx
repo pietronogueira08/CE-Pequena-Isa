@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface CepiLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'hero';
@@ -56,66 +57,22 @@ export function CepiLogo({
 
   return (
     <div className={`flex items-center gap-3 select-none ${className}`}>
-      {/* Sunflower & Globe Vector Logo */}
+      {/* Original Image Logo */}
       <motion.div
-        className="relative flex items-center justify-center"
+        className="relative flex items-center justify-center rounded-full overflow-hidden shrink-0 shadow-md ring-2 ring-white/20 bg-white"
         initial={animated ? 'initial' : false}
         animate={animated ? 'animate' : false}
         variants={iconVariants}
         style={{ width: dimensions.icon, height: dimensions.icon }}
       >
-        <svg
-          viewBox="0 0 100 100"
-          className="w-full h-full drop-shadow-md"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Subtle Background Glow Circle */}
-          <circle cx="50" cy="50" r="46" fill="#4FA8D8" fillOpacity="0.16" />
-          <circle cx="50" cy="50" r="45" stroke="#4FA8D8" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.4" />
-
-          {/* Stem & Leaves */}
-          <path
-            d="M50 82C50 68 50 55 50 48"
-            stroke="#4C9A4C"
-            strokeWidth="4"
-            strokeLinecap="round"
-          />
-          <motion.path
-            custom={1}
-            variants={animated ? petalVariants : {}}
-            d="M50 68C42 66 36 60 38 54C46 54 50 62 50 68Z"
-            fill="#4C9A4C"
-          />
-          <motion.path
-            custom={2}
-            variants={animated ? petalVariants : {}}
-            d="M50 62C58 60 64 54 62 48C54 48 50 56 50 62Z"
-            fill="#4C9A4C"
-          />
-
-          {/* Sunflower Petals in Circular Array */}
-          {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, idx) => (
-            <motion.path
-              key={angle}
-              custom={idx + 3}
-              variants={animated ? petalVariants : {}}
-              d="M50 18 C52 26, 56 32, 50 36 C44 32, 48 26, 50 18 Z"
-              fill={idx % 2 === 0 ? '#F4C430' : '#E5B31E'}
-              transform={`rotate(${angle} 50 42)`}
-            />
-          ))}
-
-          {/* Center Globe / Sunflower Core */}
-          <circle cx="50" cy="42" r="14" fill="#D9772E" />
-          <circle cx="50" cy="42" r="12" fill="#1B3A6B" />
-          {/* Globe meridians */}
-          <ellipse cx="50" cy="42" rx="7" ry="12" stroke="#4FA8D8" strokeWidth="1" opacity="0.8" />
-          <line x1="38" y1="42" x2="62" y2="42" stroke="#4FA8D8" strokeWidth="1" opacity="0.8" />
-          {/* Center Star / Pupil */}
-          <circle cx="50" cy="42" r="3.5" fill="#F4C430" />
-        </svg>
-
+        <Image 
+          src="/images/logo-cepi.jpeg" 
+          alt="CEPI Logo" 
+          fill 
+          className="object-cover"
+          sizes={`${dimensions.icon}px`}
+        />
+        
         {/* Pulsing Aura if animated */}
         {animated && (
           <motion.div
