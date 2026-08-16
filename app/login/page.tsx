@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { CepiLogo } from '@/components/brand/CepiLogo';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
@@ -67,11 +68,25 @@ export default function LoginPage() {
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="w-full lg:w-5/12 bg-gradient-to-br from-[#0F2240] via-[#1B3A6B] to-[#14294C] p-8 lg:p-14 flex flex-col justify-between text-white relative overflow-hidden shrink-0"
+        className="w-full lg:w-5/12 p-8 lg:p-14 flex flex-col justify-between text-white relative overflow-hidden shrink-0"
       >
-        {/* Background Light Blobs */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-cepi-gold/15 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-cepi-sky/20 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+        {/* Background Image Wrapper */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/cepi_login_hero_animation.jpg"
+            alt="Aluno abrindo um caderno luminoso com partículas de sabedoria"
+            fill
+            priority
+            quality={100}
+            className="object-cover object-center"
+          />
+          {/* Institutional Overlay Gradient to ensure text readability */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0F2240]/90 via-[#1B3A6B]/80 to-[#14294C]/95 mix-blend-multiply" />
+        </div>
+
+        {/* Background Light Blobs (Enhanced Depth) */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-cepi-gold/20 rounded-full blur-[100px] pointer-events-none -mr-20 -mt-20 z-0" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-cepi-sky/30 rounded-full blur-[100px] pointer-events-none -ml-20 -mb-20 z-0" />
 
         {/* Top Header */}
         <div className="relative z-10 space-y-4">
