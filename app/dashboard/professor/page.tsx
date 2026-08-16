@@ -274,27 +274,35 @@ export default function ProfessorDashboardPage() {
               <Badge variant="gold">Meta: 7.0</Badge>
             </div>
 
-            <div className="h-64 mt-4 w-full">
+            <div className="flex-1 min-h-[300px] min-w-0 w-full mt-4 -ml-4">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={performanceData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                  <XAxis dataKey="turma" tick={{ fontSize: 11, fill: '#64748B' }} />
-                  <YAxis domain={[0, 10]} tick={{ fontSize: 11, fill: '#64748B' }} />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                      borderRadius: '12px',
-                      border: '1px solid #CBD5E1',
-                      boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
-                      fontSize: '12px',
-                    }}
-                    formatter={(value: any) => [`${value} pts`, 'Média da Turma']}
+                  <XAxis
+                    dataKey="turma"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: '#64748B', fontSize: 12 }}
+                    dy={10}
                   />
-                  <Bar dataKey="media" radius={[8, 8, 0, 0]}>
+                  <YAxis
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: '#64748B', fontSize: 12 }}
+                    domain={[0, 10]}
+                    ticks={[0, 3, 6, 10]}
+                  />
+                  <Tooltip
+                    cursor={{ fill: '#F1F5F9' }}
+                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)' }}
+                  />
+                  <Bar dataKey="media" radius={[6, 6, 0, 0]} maxBarSize={50}>
                     {performanceData.map((entry, index) => (
                       <Cell
                         key={`cell-${index}`}
-                        fill={index === 0 ? '#1B3A6B' : index === 1 ? '#F4C430' : '#4FA8D8'}
+                        fill={
+                          entry.media >= 8.0 ? '#1B3A6B' : entry.media >= 7.0 ? '#F4C430' : '#4FA8D8'
+                        }
                       />
                     ))}
                   </Bar>

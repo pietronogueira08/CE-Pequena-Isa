@@ -47,7 +47,7 @@ export default function DashboardLayout({
         />
 
         {/* Dashboard Dynamic Page View */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto overflow-x-hidden">
           <div className="max-w-7xl mx-auto space-y-6">
             <PageTransition>{children}</PageTransition>
           </div>
