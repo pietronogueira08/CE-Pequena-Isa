@@ -88,7 +88,7 @@ export default function ProfessorDashboardPage() {
               <span>Painel do Docente • CEPI</span>
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
-              Olá, {teacher.name}! 📚
+              Olá, {teacher.name}
             </h1>
             <p className="text-slate-200 text-sm sm:text-base leading-relaxed">
               Você tem <strong className="text-white">3 aulas hoje</strong>. Sua próxima turma é o{' '}

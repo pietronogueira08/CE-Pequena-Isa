@@ -1,10 +1,10 @@
-# 🌻 CEPI Gestão Escolar — Demo Comercial Premium
+# CEPI Gestão Escolar — Demonstração Premium
 
 Sistema de Gestão Escolar demonstrativo e navegável desenvolvido para o **CEPI — Centro Educacional Pequena Isa** (Grussaí, São João da Barra - RJ).
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
 - **Linguagem**: [TypeScript](https://www.typescriptlang.org/)
@@ -17,7 +17,7 @@ Sistema de Gestão Escolar demonstrativo e navegável desenvolvido para o **CEPI
 
 ---
 
-## 🎨 Identidade Visual (Cores Oficiais)
+## Identidade Visual (Cores Oficiais)
 
 - **Azul Marinho (`#1B3A6B`)**: Títulos institucionais, sidebar, autoridade.
 - **Amarelo Dourado (`#F4C430`)**: Destaques, badges de excelência, CTAs.
@@ -27,7 +27,7 @@ Sistema de Gestão Escolar demonstrativo e navegável desenvolvido para o **CEPI
 
 ---
 
-## 👥 Perfis Disponíveis na Demonstração
+## Perfis Disponíveis na Demonstração
 
 1. **Professor(a) (Perfil Carro-Chefe)**:
    - Visão Geral com horários e gráficos de desempenho das turmas.
@@ -46,11 +46,11 @@ Sistema de Gestão Escolar demonstrativo e navegável desenvolvido para o **CEPI
    - Boletim escolar completo do filho (Lucas Mendes - 6º Ano A), frequência e comunicados da escola.
 
 5. **Aluno(a)**:
-   - Grade de horários do dia, tarefas pendentes, conquistas gamificadas e quadro de avisos.
+   - Grade de horários do dia, tarefas pendentes, conquistas e quadro de avisos.
 
 ---
 
-## 💻 Como Rodar o Projeto
+## Como Executar o Projeto
 
 ### Pré-requisitos
 - Node.js 18+ instalado
@@ -72,11 +72,11 @@ npm install
 npm run dev
 ```
 
-Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver a Splash Screen animada e navegar entre os perfis!
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver a Splash Screen animada e navegar entre os perfis.
 
 ---
 
-## 📦 Build para Produção / Deploy na Vercel
+## Build para Produção / Deploy na Vercel
 
 ```bash
 npm run build

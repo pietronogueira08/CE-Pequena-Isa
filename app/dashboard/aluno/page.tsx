@@ -38,9 +38,24 @@ export default function AlunoDashboardPage() {
   ];
 
   const achievements = [
-    { title: 'Destaque em Redação', desc: 'Nota 9.5 na Prova 1', icon: '⭐', color: 'bg-amber-100 text-amber-900 border-amber-300' },
-    { title: 'Presença Ouro', desc: '100% de presença em Agosto', icon: '🏆', color: 'bg-emerald-100 text-emerald-900 border-emerald-300' },
-    { title: 'Leitor Voraz', desc: '3 livros lidos na biblioteca', icon: '📚', color: 'bg-sky-100 text-sky-900 border-sky-300' },
+    {
+      title: 'Destaque em Redação',
+      desc: 'Nota 9.5 na Prova 1',
+      icon: <Award className="w-6 h-6 text-amber-700" />,
+      color: 'bg-amber-50 text-amber-950 border-amber-200',
+    },
+    {
+      title: 'Presença Ouro',
+      desc: '100% de presença em Agosto',
+      icon: <CheckCircle2 className="w-6 h-6 text-emerald-700" />,
+      color: 'bg-emerald-50 text-emerald-950 border-emerald-200',
+    },
+    {
+      title: 'Leitor Voraz',
+      desc: '3 livros lidos na biblioteca',
+      icon: <BookOpen className="w-6 h-6 text-cepi-sky-700" />,
+      color: 'bg-sky-50 text-sky-950 border-sky-200',
+    },
   ];
 
   return (
@@ -52,10 +67,10 @@ export default function AlunoDashboardPage() {
           <div className="space-y-2 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-bold text-cepi-gold backdrop-blur-sm">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Espaço do Estudante CEPI</span>
+              <span>Espaço do Estudante • CEPI</span>
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
-              E aí, {student.name.split(' ')[0]}! 🚀
+              Olá, {student.name}
             </h1>
             <p className="text-slate-200 text-sm sm:text-base leading-relaxed">
               Você tem <strong>5 aulas hoje</strong> e <strong>2 tarefas para entregar</strong> esta semana.
@@ -63,9 +78,9 @@ export default function AlunoDashboardPage() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-extrabold">
-              <Flame className="w-4 h-4 text-amber-400 animate-bounce" />
-              <span>Sequência: 12 dias presentes!</span>
+            <div className="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold">
+              <CheckCircle2 className="w-4 h-4 text-amber-400" />
+              <span>Sequência: 12 dias presentes</span>
             </div>
           </div>
         </div>
@@ -145,18 +160,20 @@ export default function AlunoDashboardPage() {
           <GlassCard className="p-6">
             <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
               <Sparkles className="w-5 h-5 text-amber-500" />
-              <h3 className="text-base font-bold text-slate-900">Minhas Conquistas no CEPI</h3>
+              <h3 className="text-base font-bold text-slate-900">Destaques e Reconhecimento CEPI</h3>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
               {achievements.map((ach, idx) => (
                 <div
                   key={idx}
-                  className={`p-3.5 rounded-2xl border ${ach.color} space-y-1 text-center flex flex-col items-center justify-center`}
+                  className={`p-4 rounded-2xl border ${ach.color} space-y-2 text-center flex flex-col items-center justify-center`}
                 >
-                  <span className="text-2xl mb-1">{ach.icon}</span>
+                  <div className="p-2.5 rounded-xl bg-white shadow-2xs">
+                    {ach.icon}
+                  </div>
                   <h4 className="text-xs font-extrabold">{ach.title}</h4>
-                  <p className="text-[10px] opacity-80">{ach.desc}</p>
+                  <p className="text-[11px] opacity-80">{ach.desc}</p>
                 </div>
               ))}
             </div>

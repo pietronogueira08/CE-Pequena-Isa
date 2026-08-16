@@ -293,7 +293,7 @@ export default function IncidentsPage() {
                 required
               >
                 <option value="comportamental">Comportamental / Disciplinar</option>
-                <option value="elogio">Elogio / Destaque Positivo ⭐</option>
+                <option value="elogio">Elogio / Destaque Pedagógico</option>
                 <option value="atraso">Atraso / Pontualidade</option>
                 <option value="desempenho">Desempenho Acadêmico</option>
                 <option value="uniforme">Uniforme / Material Escolar</option>
